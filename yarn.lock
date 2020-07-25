@@ -2009,6 +2009,13 @@
     "@types/history" "*"
     "@types/react" "*"
 
+"@types/react-helmet@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-helmet/-/react-helmet-6.0.0.tgz#5b74e44a12662ffb12d1c97ee702cf4e220958cf"
+  integrity sha512-NBMPAxgjpaMooXa51cU1BTgrX6T+hQbMiLm77JhBbfOzPQea3RB5rNpPOD5xGWHIVpGXHd59cltEzIq0qglGcQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*":
   version "16.9.41"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.41.tgz#925137ee4d2ff406a0ecf29e8e9237390844002e"
@@ -6776,6 +6783,14 @@ gatsby-plugin-react-helmet@^3.3.6:
   integrity sha512-KEmgL5TxdMsMNm6p5jgz422p8qwogriDlm0WPgObFshR3fkAFtbqEX6FlZW0Vv8itt6tP3YbKHN4exxIA2Hc8g==
   dependencies:
     "@babel/runtime" "^7.10.3"
+
+gatsby-plugin-remote-images@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-remote-images/-/gatsby-plugin-remote-images-2.2.0.tgz#8187eb4f23af322801349f84be8b5f9709fad5df"
+  integrity sha512-6EPbgo8FJ4z4iBGiiCMAgkIjPB/NJTs3Hbe0pyykEexPuiL0/Z8PlQMNbH/WH9MW4ArIF2KCZKEC/3ctup+cmw==
+  dependencies:
+    gatsby-source-filesystem "^2.3.14"
+    lodash "^4.17.15"
 
 gatsby-plugin-sharp@^2.6.14:
   version "2.6.14"
