@@ -1,4 +1,1 @@
-{
-  "arrowParens": "avoid",
-  "semi": false
-}
+"@vtex/prettier-config"
