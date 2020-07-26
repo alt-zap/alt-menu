@@ -39,7 +39,7 @@ const Address: FC<Props> = ({ onAddress }) => {
       <div id="endereco" className="flex flex-column items-center mt2">
         <div className="flex mb2 w-100 justify-center">
           <span className="w-80">Logradouro</span>
-          <span className="w-20 ml2">Nº</span>
+          <span className="w-20 ml2">Número</span>
         </div>
         <div className="flex w-100 justify-center">
           <Input
