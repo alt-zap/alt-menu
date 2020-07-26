@@ -5,11 +5,12 @@ import { TenantConfig, OrderProducts } from '@bit/lucis.alt.typings'
 import ProductSummary from '../common/ProductSummary'
 
 type Props = {
+  tenantNodeId: string
   items: TenantConfig['items']
   onOrder: (items: OrderProducts[]) => void
 }
 
-const ProductList: FC<Props> = ({ items, onOrder }) => {
+const ProductList: FC<Props> = ({ items, onOrder, tenantNodeId }) => {
   const [quantities, setQuantities] = useState<Record<number, string>>({})
   const setForIndex = useCallback(
     (i) => (value: string) => setQuantities({ ...quantities, [i]: value }),

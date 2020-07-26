@@ -23,9 +23,10 @@ const { Header, Footer } = Layout
 
 type Props = {
   tenant: TenantConfig
+  tenantNodeId: string
 }
 
-const Order: FC<Props> = ({ tenant }) => {
+const Order: FC<Props> = ({ tenantNodeId, tenant }) => {
   const [address, setAddress] = useState<AddressType>()
   const [order, setOrder] = useState<OrderProducts[]>([])
   const [total, setTotal] = useState(0)

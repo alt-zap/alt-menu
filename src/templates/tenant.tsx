@@ -35,6 +35,13 @@ export const query = graphql`
         live
         name
         price
+        localImage {
+          childImageSharp {
+            fluid(maxWidth: 200, maxHeight: 200) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
       paymentMethods {
         checksForChange

@@ -10,6 +10,17 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Mukta`,
+            variants: [`200`, `400`, `600`],
+          },
+        ],
+      },
+    },
+    {
       resolve: `gatsby-source-alt`,
       options: {
         projectId: process.env.PROJECT_ID,
@@ -46,13 +57,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-typescript`,
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'Tenant',
-        imagePath: 'nodes[].items[].imgSrc',
-      },
-    },
     `gatsby-plugin-offline`,
   ],
 }
