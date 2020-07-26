@@ -53,6 +53,8 @@ const PaymentSelector: FC<Props> = ({ methods, onPayment }) => {
               {methodName}
               {checksForChange && selectedIndex === i && (
                 <CurrencyInput
+                  valueAsString
+                  addonBefore="R$"
                   placeholder="Troco para?"
                   className="ml2 w-50"
                   value={change}

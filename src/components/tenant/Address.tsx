@@ -86,9 +86,13 @@ const Address: FC<Props> = ({ onAddress }) => {
             disabled
             className="w-60 mr2"
           />
-          <Select defaultValue="lucy" className="w-40" size="large" disabled>
-            <Select.Option value="lucy">Paraíba</Select.Option>
-          </Select>
+          <Select
+            value="Paraíba"
+            defaultValue="Paraíba"
+            className="w-40"
+            size="large"
+            disabled
+          />
         </div>
       </div>
       <div />
