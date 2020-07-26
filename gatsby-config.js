@@ -1,10 +1,28 @@
+require('dotenv').config({
+  path: `.env`,
+})
+
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Alt`,
+    description: `Compartilhe seus produtos e receba pedidos pelo Whatsapp`,
+    author: `@lucis`,
   },
   plugins: [
+    {
+      resolve: `gatsby-source-alt`,
+      options: {
+        projectId: process.env.PROJECT_ID,
+        privateKeyId: process.env.PRIVATE_KEY_ID,
+        privateKey: process.env.PRIVATE_KEY,
+        clientEmail: process.env.CLIENT_EMAIL,
+        clientId: process.env.CLIENT_ID,
+        authUri: process.env.AUTH_URI,
+        tokenUri: process.env.TOKEN_URI,
+        authCertUrl: process.env.AUTH_CERT_URL,
+        clientCertUrl: process.env.CLIENT_CERT_URL,
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -24,7 +42,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/gatsby-icon.png`,
       },
     },
     `gatsby-plugin-typescript`,
@@ -35,8 +53,14 @@ module.exports = {
         imagePath: 'nodes[].items[].imgSrc',
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /assets/,
+        },
+      },
+    },
+    `gatsby-plugin-offline`,
   ],
 }

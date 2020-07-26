@@ -1,74 +1,31 @@
-/* eslint-disable import/no-nodejs-modules */
-/* eslint-disable global-require */
-const crypto = require('crypto')
-
-const report = require('gatsby-cli/lib/reporter')
-const firebase = require('firebase-admin')
-
-const getDigest = (id) => crypto.createHash('md5').update(id).digest('hex')
-
-exports.sourceNodes = async ({ actions }) => {
-  try {
-    if (firebase.apps || !firebase.apps.length) {
-      firebase.initializeApp({
-        credential: firebase.credential.cert(require('./altzapfirebase.json')),
-      })
+exports.createPages = async ({ actions, graphql, reporter }) => {
+  const result = await graphql(`
+    query MyQuery {
+      allTenant {
+        nodes {
+          slug
+          id
+        }
+      }
     }
-  } catch (e) {
-    report.warn(
-      'Could not initialize Firebase. Please check `credential` property in gatsby-config.js'
-    )
-    report.warn(e)
+  `)
 
-    return
+  if (result.errors) {
+    reporter.panic('It wasnt possible to create the Tenant pages')
+    reporter.panic(result.errors)
   }
 
-  const db = firebase.firestore()
+  const { nodes: tenants } = result.data.allTenant
 
-  db.settings({
-    timestampsInSnapshots: true,
-  })
+  const tenantTemplate = require.resolve('./src/templates/tenant.tsx')
 
-  const { createNode } = actions
-
-  const { docs } = await db.collection('tenants').get()
-
-  docs.forEach((doc) => {
-    const tenant = doc.data()
-    const hash = getDigest(doc.id)
-
-    createNode({
-      ...tenant,
-      id: doc.id,
-      parent: null,
-      children: [],
-      internal: {
-        type: 'Tenant',
-        contentDigest: hash,
+  tenants.forEach(({ slug, id }) => {
+    actions.createPage({
+      path: `/${slug}`,
+      component: tenantTemplate,
+      context: {
+        id,
       },
     })
   })
-
-
-  // const promises = types.map(
-  //   async ({ collection, type, map = (node) => node }) => {
-  //     const snapshot = await db.collection(collection).get()
-  //     for (let doc of snapshot.docs) {
-  //       const contentDigest = getDigest(doc.id)
-  //       createNode(
-  //         Object.assign({}, map(doc.data()), {
-  //           id: doc.id,
-  //           parent: null,
-  //           children: [],
-  //           internal: {
-  //             type,
-  //             contentDigest,
-  //           },
-  //         })
-  //       )
-  //       Promise.resolve()
-  //     }
-  //   }
-  // )
-  // await Promise.all(promises)
 }
