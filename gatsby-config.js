@@ -53,14 +53,6 @@ module.exports = {
         imagePath: 'nodes[].items[].imgSrc',
       },
     },
-    {
-      resolve: 'gatsby-plugin-react-svg',
-      options: {
-        rule: {
-          include: /assets/,
-        },
-      },
-    },
     `gatsby-plugin-offline`,
   ],
 }
