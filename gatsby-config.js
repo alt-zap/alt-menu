@@ -21,7 +21,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-alt`,
+      resolve: `@alt-zap/gatsby-source-alt`,
       options: {
         projectId: process.env.PROJECT_ID,
         privateKeyId: process.env.PRIVATE_KEY_ID,

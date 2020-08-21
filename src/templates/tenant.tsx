@@ -22,32 +22,70 @@ export default Tenant
 export const query = graphql`
   query TenantQuery($id: String!) {
     tenant(id: { eq: $id }) {
-      slug
-      deliveryFee
-      instagram
-      live
       name
+      slug
+      color
+      userId
       whatsapp
-      items {
-        headline
-        imgSrc
-        items
-        live
+      category
+      categories {
         name
-        price
-        localImage {
-          childImageSharp {
-            fluid(maxWidth: 200, maxHeight: 200) {
-              ...GatsbyImageSharpFluid
-            }
-          }
+        slug
+        live
+      }
+      address {
+        cidade
+        estado
+        numero
+        bairro
+        logradouro
+        complemento
+      }
+      openingHours {
+        intervals {
+          days
+          from
+          to
         }
       }
       paymentMethods {
+        name
         checksForChange
         description
         imgSrc
+      }
+      shippingStrategies {
+        takeaway {
+          active
+        }
+        deliveryFixed {
+          active
+          price
+        }
+      }
+      products {
+        id
         name
+        imgSrc
+        description
+        category
+        price
+        localImage {
+          size
+        }
+        assemblyOptions {
+          live
+          min
+          name
+          type
+          price
+          options {
+            name
+            initialQuantity
+            price
+            live
+          }
+        }
       }
     }
   }
