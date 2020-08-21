@@ -10,10 +10,13 @@ type DataProps = {
   tenant: TenantConfig
 }
 
-const Tenant: FC<PageProps<DataProps>> = ({ data: { tenant } }) => (
+const Tenant: FC<PageProps<DataProps>> = ({
+  data: { tenant },
+  pageContext: { id },
+}) => (
   <div>
     <Seo title={tenant.name} />
-    <Order tenant={tenant} />
+    <Order tenant={tenant} tenantNodeId={id} />
   </div>
 )
 
