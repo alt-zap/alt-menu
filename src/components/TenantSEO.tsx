@@ -1,20 +1,13 @@
 import React, { FC } from 'react'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
+import { TenantConfig } from '@bit/lucis.alt.typings'
 
 type Props = {
-  description?: string
-  lang?: string
-  meta?: Array<{ name: string; content: string }>
-  title: string
+  tenant: TenantConfig
 }
 
-const SEO: FC<Props> = ({
-  description = '',
-  lang = 'pt',
-  meta = [],
-  title,
-}) => {
+const SEO: FC<Props> = ({ tenant }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -29,14 +22,14 @@ const SEO: FC<Props> = ({
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
+  const metaDescription = tenant.name || site.siteMetadata.description
 
   return (
     <Helmet
       htmlAttributes={{
-        lang,
+        lang: 'pt-br',
       }}
-      title={title}
+      title={tenant.name}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
       meta={[
         {
@@ -45,7 +38,7 @@ const SEO: FC<Props> = ({
         },
         {
           property: `og:title`,
-          content: title,
+          content: tenant.name,
         },
         {
           property: `og:description`,
@@ -65,13 +58,13 @@ const SEO: FC<Props> = ({
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: tenant.name,
         },
         {
           name: `twitter:description`,
           content: metaDescription,
         },
-      ].concat(meta)}
+      ].concat([])}
     />
   )
 }

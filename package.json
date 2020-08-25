@@ -13,7 +13,7 @@
     "@bit/lucis.alt.quantity-selector": "^1.0.1",
     "@bit/lucis.alt.real": "^1.0.1",
     "@bit/lucis.alt.typings": "^1.0.4",
-    "@bit/lucis.alt.utils": "^1.0.5",
+    "@bit/lucis.alt.utils": "^1.2.0",
     "antd": "^4.4.3",
     "firebase-admin": "^9.0.0",
     "gatsby": "2.24.9",

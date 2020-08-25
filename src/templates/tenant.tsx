@@ -3,20 +3,31 @@ import React, { FC } from 'react'
 import { PageProps, graphql } from 'gatsby'
 import { TenantConfig } from '@bit/lucis.alt.typings'
 
-import Seo from '../components/seo'
+import TenantSEO from '../components/TenantSEO'
 import Order from '../components/tenant/Order'
+import { GatsbyProduct } from '../typings'
 
-type DataProps = {
-  tenant: TenantConfig
+interface GatsbyTenant extends TenantConfig {
+  products: GatsbyProduct[]
 }
 
-const Tenant: FC<PageProps<DataProps>> = ({
-  data: { tenant },
+type DataProps = {
+  tenant: GatsbyTenant
+}
+
+type ContextProps = {
+  id: string
+}
+
+const Tenant: FC<PageProps<DataProps, ContextProps>> = ({
+  data: {
+    tenant: { products, ...rest },
+  },
   pageContext: { id },
 }) => (
   <div>
-    <Seo title={tenant.name} />
-    <Order tenant={tenant} tenantNodeId={id} />
+    <TenantSEO tenant={rest} />
+    <Order tenant={rest} products={products} tenantNodeId={id} />
   </div>
 )
 
@@ -26,6 +37,7 @@ export const query = graphql`
   query TenantQuery($id: String!) {
     tenant(id: { eq: $id }) {
       name
+      live
       slug
       color
       userId
@@ -68,13 +80,18 @@ export const query = graphql`
       }
       products {
         id
+        live
         name
         imgSrc
         description
         category
         price
         localImage {
-          size
+          childImageSharp {
+            fluid(maxWidth: 200, maxHeight: 200) {
+              ...GatsbyImageSharpFluid
+            }
+          }
         }
         assemblyOptions {
           live

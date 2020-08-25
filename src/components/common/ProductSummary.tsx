@@ -2,22 +2,19 @@ import React, { FC, Fragment, useState } from 'react'
 import { Modal } from 'antd'
 import QuantitySelector from '@bit/lucis.alt.quantity-selector'
 import Real from '@bit/lucis.alt.real'
-import { TenantConfig } from '@bit/lucis.alt.typings'
 
 import LocalProductImage from './LocalProductImage'
 import ProductDetails from './ProductDetails'
-
-type ArrayElement<ArrayType extends readonly unknown[]> = ArrayType[number]
+import { GatsbyProduct } from '../../typings'
 
 type Props = {
-  product: Omit<ArrayElement<TenantConfig['items']>, 'live'>
+  product: GatsbyProduct
   selectedQuantity: string
   setQuantity: (qt: string) => void
-  tenantNodeId: string
 }
 
 const ProductSummary: FC<Props> = ({
-  product: { name, headline, price, imgSrc, localImage },
+  product: { name, description, price, imgSrc, localImage },
   product,
   selectedQuantity,
   setQuantity,
@@ -50,7 +47,8 @@ const ProductSummary: FC<Props> = ({
               {name}
             </span>
             <span className="f5 fw2 silver" style={{ lineHeight: '20px' }}>
-              {headline}
+              {/** Render Markdown instead */}
+              {description}
             </span>
           </div>
           <span className="b black f3" style={{ marginBottom: '-6px' }}>

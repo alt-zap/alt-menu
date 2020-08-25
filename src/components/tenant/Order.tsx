@@ -7,7 +7,7 @@ import {
   TenantConfig,
   OrderProducts,
 } from '@bit/lucis.alt.typings'
-import { generateLink, eSet } from '@bit/lucis.alt.utils'
+import { generateLink, eSet, isTenantOpen } from '@bit/lucis.alt.utils'
 // import * as firebase from 'firebase/app'
 // import 'firebase/analytics'
 
@@ -18,15 +18,24 @@ import OrderSummary from './OrderSummary'
 import PaymentSelector from './PaymentSelector'
 import instagram from '../../assets/instagram.svg'
 import whatsapp from '../../assets/whatsapp.svg'
+import { GatsbyProduct } from '../../typings'
 
 const { Header, Footer } = Layout
 
 type Props = {
   tenant: TenantConfig
+  products: GatsbyProduct[]
   tenantNodeId: string
 }
 
-const Order: FC<Props> = ({ tenantNodeId, tenant }) => {
+const Order: FC<Props> = ({ tenant, products }) => {
+  // TBD: Option to display the menu even when they're not open for business
+  const isOpen = useMemo(
+    () =>
+      tenant?.live || isTenantOpen(tenant?.openingHours ?? { intervals: [] }),
+    [tenant]
+  )
+
   const [address, setAddress] = useState<AddressType>()
   const [order, setOrder] = useState<OrderProducts[]>([])
   const [total, setTotal] = useState(0)
@@ -81,17 +90,17 @@ const Order: FC<Props> = ({ tenantNodeId, tenant }) => {
     return total > 0 && name && address && address.logradouro
   }, [total, name, address])
 
-  const { deliveryFee, items, paymentMethods } = tenant ?? {}
+  const { deliveryFee, paymentMethods } = tenant ?? {}
 
   return (
     <div>
-      {!tenant?.live && (
+      {!isOpen && (
         <Alert
           type="warning"
           message="Este estabelecimento não está atendendo agora"
         />
       )}
-      {tenant?.live && (
+      {isOpen && (
         <Layout className="pb3">
           <Header
             style={{
@@ -135,7 +144,7 @@ const Order: FC<Props> = ({ tenantNodeId, tenant }) => {
                 message="No final, vamos te redirecionar pra o Whatsapp para finalizar seu pedido ;)"
                 type="info"
               />
-              <ProductList items={items} onOrder={setOrder} />
+              <ProductList products={products} onOrder={setOrder} />
               <Divider />
               <Address onAddress={setAddress} />
               <Divider />
