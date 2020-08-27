@@ -10,6 +10,9 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: '@alt-zap/gatsby-plugin-alt-intl',
+    },
+    {
       resolve: `gatsby-plugin-prefetch-google-fonts`,
       options: {
         fonts: [

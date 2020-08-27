@@ -6,6 +6,7 @@ import { TenantConfig } from '@bit/lucis.alt.typings'
 import TenantSEO from '../components/TenantSEO'
 import Order from '../components/tenant/Order'
 import { GatsbyProduct } from '../typings'
+import { OrderContextProvider } from '../contexts/order/OrderContext'
 
 interface GatsbyTenant extends TenantConfig {
   products: GatsbyProduct[]
@@ -26,8 +27,10 @@ const Tenant: FC<PageProps<DataProps, ContextProps>> = ({
   pageContext: { id },
 }) => (
   <div>
-    <TenantSEO tenant={rest} />
-    <Order tenant={rest} products={products} tenantNodeId={id} />
+    <OrderContextProvider>
+      <TenantSEO tenant={rest} />
+      <Order tenant={rest} products={products} tenantNodeId={id} />
+    </OrderContextProvider>
   </div>
 )
 
