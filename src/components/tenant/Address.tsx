@@ -4,12 +4,14 @@ import { Address as AddressType } from '@bit/lucis.alt.typings'
 import { eSet } from '@bit/lucis.alt.utils'
 
 import AutoFill from '../common/AutoFill'
+import { useOrder } from '../../contexts/order/OrderContext'
 
 type Props = {
   onAddress: (data: AddressType) => void
 }
 
 const Address: FC<Props> = ({ onAddress }) => {
+  const [, dispatch] = useOrder()
   const [logradouro, setLogradouro] = useState('')
   const [numero, setNumero] = useState('')
   const [complemento, setComplemento] = useState('')

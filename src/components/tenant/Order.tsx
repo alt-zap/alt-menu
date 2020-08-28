@@ -8,6 +8,8 @@ import {
   OrderProducts,
 } from '@bit/lucis.alt.typings'
 import { generateLink, eSet, isTenantOpen } from '@bit/lucis.alt.utils'
+import { useAltIntl } from '@alt-zap/gatsby-plugin-alt-intl'
+
 // import * as firebase from 'firebase/app'
 // import 'firebase/analytics'
 
@@ -29,6 +31,7 @@ type Props = {
 }
 
 const Order: FC<Props> = ({ tenant, products }) => {
+  const { formatMessage } = useAltIntl()
   // TBD: Option to display the menu even when they're not open for business
   const isOpen = useMemo(
     () =>
@@ -141,7 +144,7 @@ const Order: FC<Props> = ({ tenant, products }) => {
           <div className="flex justify-center" style={{ marginTop: '80px' }}>
             <div className="w-100 ph2 ph0-l w-50-l">
               <Alert
-                message="No final, vamos te redirecionar pra o Whatsapp para finalizar seu pedido ;)"
+                message={formatMessage({ id: 'address.city' })}
                 type="info"
               />
               <ProductList products={products} onOrder={setOrder} />

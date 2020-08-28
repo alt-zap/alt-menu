@@ -52,12 +52,12 @@ export const query = graphql`
         live
       }
       address {
-        cidade
-        estado
-        numero
-        bairro
-        logradouro
-        complemento
+        city
+        state
+        number
+        district
+        street
+        complement
       }
       openingHours {
         intervals {
